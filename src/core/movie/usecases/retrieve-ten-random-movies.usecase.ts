@@ -1,9 +1,15 @@
 import { createAppAsyncThunk } from '../../_redux_/createAppThunk'
 
+// Arbitrary "random" way to search for movies as the API doesn't provide a random search
+// This is just for the sake of the example, in a real-world scenario,
+// this would not be a proper random movie implementation
+
 function randomMovieSearch() {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'
-  const randomLetter = Math.floor(Math.random() * alphabet.length)
-  return alphabet[randomLetter]
+  const numbers = '0123456789'
+  const symbols = alphabet + numbers
+  const randomSymbol = Math.floor(Math.random() * symbols.length)
+  return symbols[randomSymbol]
 }
 
 export const retrieveTenRandomMovies = createAppAsyncThunk(
