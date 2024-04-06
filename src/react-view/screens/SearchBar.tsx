@@ -7,7 +7,7 @@ import { searchMovie } from '../../core/movie/usecases/search-movie.usecase'
 
 export function SearchBar() {
   const dispatch = useDispatch<AppDispatch>()
-  const [movieSearchQuery, setMovieSearchQuery] = useState('')
+  const [movieSearchQuery, setMovieSearchQuery] = useState('Harry Potter')
 
   return (
     <View style={styles.container}>

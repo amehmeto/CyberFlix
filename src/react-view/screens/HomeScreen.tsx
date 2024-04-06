@@ -1,14 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { theme as T } from '../design-system/theme'
 import { SearchBar } from './SearchBar'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../core/_redux_/createStore'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../core/_redux_/createStore'
 import { selectAllMovies } from '../../core/movie/selectors/selectAllMovies'
+import { MoviePreviewCard } from './MoviePreviewCard'
+import { useEffect } from 'react'
+import { retrieveTenRandomMovies } from '../../core/movie/usecases/retrieve-ten-random-movies.usecase'
 
 export function HomeScreen() {
-  const results = useSelector<RootState, ReturnType<typeof selectAllMovies>>(
+  const dispatch = useDispatch<AppDispatch>()
+  const movies = useSelector<RootState, ReturnType<typeof selectAllMovies>>(
     (state) => selectAllMovies(state),
   )
+
+  useEffect(() => {
+    dispatch(retrieveTenRandomMovies())
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -16,11 +24,12 @@ export function HomeScreen() {
 
       <SearchBar />
 
-      {results.map((movie, index) => (
-        <Text key={movie.id} style={styles.result}>
-          {movie.title}
-        </Text>
-      ))}
+      <FlatList
+        data={movies}
+        renderItem={({ item }) => <MoviePreviewCard movie={item} />}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ width: '100%' }}
+      />
     </View>
   )
 }
@@ -34,7 +43,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: T.font.size.small,
     maxWidth: T.width.max,
-    padding: T.spacing.xxLarge,
+    padding: T.spacing.none,
+
+    borderWidth: T.border.width.thick,
+    borderColor: T.color.purple,
   },
   title: {
     fontSize: T.font.size.xxxLarge,
@@ -42,5 +54,4 @@ const styles = StyleSheet.create({
     marginBottom: T.spacing.large,
     textAlign: 'center',
   },
-  result: { fontSize: T.font.size.regular, fontFamily: T.font.family.debug },
 })

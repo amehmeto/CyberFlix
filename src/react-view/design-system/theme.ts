@@ -6,10 +6,18 @@ export const theme = {
     grey: '#ddd',
     mediumGray: 'rgba(0,0,0,0.75)',
     red: 'rgba(255, 0, 0, 1)',
+    purple: 'rgba(128, 0, 128, 1)',
   },
   width: {
     max: 1000,
     eighty_percent: '80%' as const,
+    hundred_percent: '100%' as const,
+    previewCard: 600,
+    posterImage: 100,
+  },
+  height: {
+    previewCard: 300,
+    posterImage: 100,
   },
   spacing: {
     none: 0,
