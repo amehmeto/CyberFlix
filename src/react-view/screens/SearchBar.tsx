@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { Pressable, TextInput, View, StyleSheet, Text } from 'react-native'
 import { theme as T } from '../design-system/theme'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../core/_redux_/createStore'
+import { searchMovie } from '../../core/movie/usecases/search-movie.usecase'
 
 export function SearchBar() {
-  const [value, setValue] = useState('')
-
-  const handleSubmit = () => {
-    console.log('Submit', value)
-  }
+  const dispatch = useDispatch<AppDispatch>()
+  const [movieSearchQuery, setMovieSearchQuery] = useState('')
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        value={value}
-        onChangeText={setValue}
+        value={movieSearchQuery}
+        onChangeText={setMovieSearchQuery}
         placeholder="Search for a movie..."
       />
       <Pressable
@@ -22,7 +22,7 @@ export function SearchBar() {
           styles.button,
           pressed ? styles.buttonPressed : styles.buttonNotPressed,
         ]}
-        onPress={handleSubmit}
+        onPress={() => dispatch(searchMovie(movieSearchQuery))}
       >
         <Text style={styles.buttonText} numberOfLines={1}>
           Search
@@ -34,7 +34,7 @@ export function SearchBar() {
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    width: T.width.eighty_percent,
     flexDirection: 'row',
     backgroundColor: T.color.white,
     borderRadius: T.border.radius.extraRounded,
@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
   input: {
     flex: 2,
     marginRight: T.spacing.small,
-    fontSize: T.fontSize.medium,
+    fontSize: T.font.size.medium,
     paddingVertical: T.spacing.small,
     paddingHorizontal: T.spacing.large,
-    lineHeight: 28,
+    lineHeight: T.lineHeight.large,
     borderRadius: T.border.radius.extraRounded,
     borderWidth: T.border.width.thin,
     borderColor: T.color.grey,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: T.color.mediumGray,
     borderColor: T.color.mediumGray,
     borderWidth: T.border.width.thin,
-    fontSize: T.fontSize.regular,
+    fontSize: T.font.size.regular,
     paddingVertical: T.spacing.medium,
     paddingHorizontal: T.spacing.large,
     borderRadius: T.border.radius.extraRounded,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: T.color.white,
-    fontWeight: T.fontWeight.bold,
+    fontWeight: T.font.weight.bold,
     justifyContent: 'center',
     textAlign: 'center',
   },

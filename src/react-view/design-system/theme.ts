@@ -1,13 +1,4 @@
 export const theme = {
-  fontSize: {
-    small: 10,
-    regular: 14,
-    medium: 16,
-    large: 20,
-    xLarge: 24,
-    xxLarge: 32,
-    xxxLarge: 40,
-  },
   color: {
     white: '#fff',
     lightGray: 'rgb(244, 244, 244)',
@@ -18,6 +9,7 @@ export const theme = {
   },
   width: {
     max: 1000,
+    eighty_percent: '80%' as const,
   },
   spacing: {
     none: 0,
@@ -29,8 +21,13 @@ export const theme = {
     xLarge: 25,
     xxLarge: 32,
   },
-  fontWeight: {
-    bold: 'bold' as const,
+  lineHeight: {
+    small: 14,
+    regular: 20,
+    medium: 24,
+    large: 28,
+    xLarge: 32,
+    xxLarge: 40,
   },
   border: {
     width: {
@@ -42,6 +39,24 @@ export const theme = {
       roundedSmall: 5,
       extraRounded: 20,
       fullRound: 100,
+    },
+  },
+  font: {
+    weight: {
+      bold: 'bold' as const,
+    },
+    family: {
+      primary: 'Arial',
+      debug: 'monospace',
+    },
+    size: {
+      small: 10,
+      regular: 14,
+      medium: 16,
+      large: 20,
+      xLarge: 24,
+      xxLarge: 32,
+      xxxLarge: 40,
     },
   },
 }
