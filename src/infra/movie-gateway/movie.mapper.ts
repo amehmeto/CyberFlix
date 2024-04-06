@@ -18,7 +18,8 @@ export class MovieMapper {
       description:
         rawApiMovie.details?.storyLine.summaries.edges[0]?.node.plotText
           .plaidHtml ?? 'No description available',
-      reviews: (rawApiMovie.details?.top?.reviews as unknown as string[]) ?? [],
+      reviews:
+        /*(rawApiMovie.details?.top?.reviews as unknown as string[]) ?? */ [],
       keywords: rawApiMovie.details?.storyLine.storylineKeywords.edges.map(
         (edge) => edge.node.text,
       ) ?? ['no keywords available'],

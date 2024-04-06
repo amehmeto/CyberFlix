@@ -1,37 +1,31 @@
 import { Movie } from '../../core/movie/movie'
-import { StyleSheet, Image, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { theme as T } from '../design-system/theme'
-import { useEffect, useState } from 'react'
 import HTMLView from 'react-native-htmlview'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { ScreenList } from '../../../App'
+import { MoviePoster } from './MoviePoster'
 
 export function MoviePreviewCard(props: Readonly<{ movie: Movie }>) {
-  const [aspectRatio, setAspectRatio] = useState(1)
-
-  const undefinedUrlPlaceholder = 'https://via.placeholder.com/100'
-
-  useEffect(() => {
-    Image.getSize(
-      props.movie.poster ?? undefinedUrlPlaceholder,
-      (width, height) => {
-        setAspectRatio(width / height)
-      },
-    )
-  }, [props.movie.poster])
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ScreenList, 'MovieDetailsScreen'>>()
 
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate('MovieDetailsScreen', {
+          movieId: props.movie.id,
+        })
+      }
+    >
       <Text style={styles.title}>{props.movie.title}</Text>
       <View style={styles.subContainer}>
-        <Image
-          source={{
-            uri: props.movie.poster ?? undefinedUrlPlaceholder,
-          }}
-          alt={props.movie.title + ' poster'}
-          style={[styles.posterImage, { aspectRatio }]}
-        />
+        <MoviePoster movie={props.movie} />
         <HTMLView style={styles.description} value={props.movie.description} />
       </View>
-    </View>
+    </Pressable>
   )
 }
 
@@ -61,12 +55,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: T.spacing.xxLarge,
 
     margin: T.spacing.large,
-  },
-  posterImage: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: T.width.posterImage,
   },
   description: {
     marginLeft: T.spacing.medium,
