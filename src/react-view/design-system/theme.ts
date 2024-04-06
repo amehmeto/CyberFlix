@@ -12,7 +12,7 @@ export const theme = {
     shadow: '#000',
   },
   width: {
-    max: 1000,
+    max: 780,
     eighty_percent: '80%' as const,
     hundred_percent: '100%' as const,
     previewCard: 600,

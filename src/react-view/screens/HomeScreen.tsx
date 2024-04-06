@@ -13,6 +13,9 @@ export function HomeScreen() {
   const movies = useSelector<RootState, ReturnType<typeof selectAllMovies>>(
     (state) => selectAllMovies(state),
   )
+  const isLoading = useSelector<RootState, boolean>(
+    (state) => state.movies.isLoading,
+  )
 
   useEffect(() => {
     dispatch(retrieveTenRandomMovies())
@@ -24,12 +27,17 @@ export function HomeScreen() {
 
       <SearchBar />
 
-      <FlatList
-        data={movies}
-        renderItem={({ item }) => <MoviePreviewCard movie={item} />}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.flatlistContainer}
-      />
+      {isLoading && <Text>Loading...</Text>}
+      {!isLoading && movies.length === 0 ? (
+        <Text>No movies found</Text>
+      ) : (
+        <FlatList
+          data={movies}
+          renderItem={({ item }) => <MoviePreviewCard movie={item} />}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.flatlistContainer}
+        />
+      )}
     </View>
   )
 }
@@ -41,7 +49,7 @@ const styles = StyleSheet.create({
     color: T.color.darkGray,
     alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     fontSize: T.font.size.small,
     maxWidth: T.width.hundred_percent,
     padding: T.spacing.none,
@@ -49,7 +57,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: T.font.size.xxxLarge,
     fontWeight: T.font.weight.bold,
-    marginBottom: T.spacing.large,
+    margin: T.spacing.large,
     textAlign: 'center',
   },
   flatlistContainer: {

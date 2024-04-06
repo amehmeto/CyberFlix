@@ -5,15 +5,28 @@ import { retrieveTenRandomMovies } from './usecases/retrieve-ten-random-movies.u
 
 export const movieSlice = createSlice({
   name: 'movie',
-  initialState: movieAdapter.getInitialState(),
+  initialState: {
+    ...movieAdapter.getInitialState(),
+    isLoading: false,
+  },
   reducers: {},
   extraReducers(builder) {
     builder
       .addCase(searchMovie.fulfilled, (state, action) => {
-        return movieAdapter.setAll(state, action.payload)
+        state.isLoading = false
+        movieAdapter.setAll(state, action.payload)
+      })
+      .addCase(searchMovie.pending, (state) => {
+        state.isLoading = true
+        movieAdapter.removeAll(state)
       })
       .addCase(retrieveTenRandomMovies.fulfilled, (state, action) => {
-        return movieAdapter.setAll(state, action.payload)
+        state.isLoading = false
+        movieAdapter.setAll(state, action.payload)
+      })
+      .addCase(retrieveTenRandomMovies.pending, (state) => {
+        state.isLoading = true
+        movieAdapter.removeAll(state)
       })
   },
 })
