@@ -34,7 +34,7 @@ export function SearchBar() {
 
 const styles = StyleSheet.create({
   container: {
-    width: T.width.eighty_percent,
+    width: T.width.hundred_percent,
     flexDirection: 'row',
     backgroundColor: T.color.white,
     borderRadius: T.border.radius.extraRounded,

@@ -1,21 +1,12 @@
 import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit'
 import { rootReducer } from './rootReducer'
-import { Movie } from '../movie/movie'
-
-export type PreloadedState = Partial<RootState>
-
-export interface MovieGateway {
-  searchMovie: (movieSearchQuery: string) => Promise<Movie[]>
-}
+import { MovieGateway } from '../movie/ports/movieGateway'
 
 export type Dependencies = {
   movieGateway: MovieGateway
 }
 
-export const createStore = (
-  dependencies: Dependencies,
-  preloadedState?: PreloadedState,
-) =>
+export const createStore = (dependencies: Dependencies) =>
   configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
@@ -24,7 +15,6 @@ export const createStore = (
           extraArgument: dependencies,
         },
       }),
-    preloadedState,
   })
 
 export type AppStore = ReturnType<typeof createStore>

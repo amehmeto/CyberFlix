@@ -14,6 +14,7 @@ export const retrieveTenRandomMovies = createAppAsyncThunk(
         .fill(null)
         .map(() => movieGateway.searchMovie(randomMovieSearch())),
     )
+
     return tenRandomMovieSearch.map((movies) => {
       const randomIndex = Math.floor(Math.random() * movies.length)
       return movies[randomIndex]

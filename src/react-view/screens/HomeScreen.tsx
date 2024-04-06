@@ -20,7 +20,7 @@ export function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cyberflix Movie Search</Text>
+      <Text style={styles.title}>CyberFlix Movie Search</Text>
 
       <SearchBar />
 
@@ -28,7 +28,7 @@ export function HomeScreen() {
         data={movies}
         renderItem={({ item }) => <MoviePreviewCard movie={item} />}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ width: '100%' }}
+        contentContainerStyle={styles.flatlistContainer}
       />
     </View>
   )
@@ -39,19 +39,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: T.color.lightGray,
     color: T.color.darkGray,
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: T.font.size.small,
-    maxWidth: T.width.max,
+    maxWidth: T.width.hundred_percent,
     padding: T.spacing.none,
-
-    borderWidth: T.border.width.thick,
-    borderColor: T.color.purple,
   },
   title: {
     fontSize: T.font.size.xxxLarge,
     fontWeight: T.font.weight.bold,
     marginBottom: T.spacing.large,
     textAlign: 'center',
+  },
+  flatlistContainer: {
+    width: '100%',
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })
