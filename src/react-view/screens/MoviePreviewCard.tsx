@@ -2,6 +2,7 @@ import { Movie } from '../../core/movie/movie'
 import { StyleSheet, Image, Text, View } from 'react-native'
 import { theme as T } from '../design-system/theme'
 import { useEffect, useState } from 'react'
+import HTMLView from 'react-native-htmlview'
 
 export function MoviePreviewCard(props: Readonly<{ movie: Movie }>) {
   const [aspectRatio, setAspectRatio] = useState(1)
@@ -20,14 +21,16 @@ export function MoviePreviewCard(props: Readonly<{ movie: Movie }>) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.movie.title}</Text>
-      <Image
-        source={{
-          uri: props.movie.poster ?? undefinedUrlPlaceholder,
-        }}
-        alt={props.movie.title + ' poster'}
-        style={[styles.posterImage, { aspectRatio }]}
-      />
-      <Text>{props.movie.description}</Text>
+      <View style={styles.subContainer}>
+        <Image
+          source={{
+            uri: props.movie.poster ?? undefinedUrlPlaceholder,
+          }}
+          alt={props.movie.title + ' poster'}
+          style={[styles.posterImage, { aspectRatio }]}
+        />
+        <HTMLView style={styles.description} value={props.movie.description} />
+      </View>
     </View>
   )
 }
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: T.font.size.xxLarge,
     fontFamily: T.font.family.debug,
-    marginBottom: T.spacing.extraSmall,
+    marginBottom: T.spacing.small,
   },
   container: {
     flex: 1,
@@ -54,8 +57,8 @@ const styles = StyleSheet.create({
     fontSize: T.font.size.small,
     width: T.width.previewCard,
 
-    paddingVertical: 20,
-    paddingHorizontal: 40,
+    paddingVertical: T.spacing.large,
+    paddingHorizontal: T.spacing.xxLarge,
 
     margin: T.spacing.large,
   },
@@ -64,5 +67,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: T.width.posterImage,
+  },
+  description: {
+    marginLeft: T.spacing.medium,
+    width: T.width.sixty_five_percent,
+  },
+  subContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: T.width.hundred_percent,
   },
 })

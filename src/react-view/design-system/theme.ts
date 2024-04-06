@@ -17,6 +17,7 @@ export const theme = {
     hundred_percent: '100%' as const,
     previewCard: 600,
     posterImage: '30%' as const,
+    sixty_five_percent: '65%' as const,
   },
   height: {
     previewCard: 300,

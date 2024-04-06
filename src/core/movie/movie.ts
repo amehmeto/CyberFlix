@@ -9,6 +9,5 @@ export type Movie = {
   poster: string
   reviews: string[]
 }
-// including title, description, poster, actors, and reviews.
 
 export const movieAdapter = createEntityAdapter<Movie>()
