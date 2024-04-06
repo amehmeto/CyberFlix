@@ -4,23 +4,23 @@ type FakeDetails = {
   '#IMDB_ID': string
   '#RANK': number
   '#ACTORS': string
-  // Add other properties if needed
 }
+
 type MainDetails = {
   id: string
-  wins: object // Replace with a more specific type if possible
-  nominations: object // Replace with a more specific type if possible
+  wins: object
+  nominations: object
   prestigiousAwardSummary: any
-  ratingsSummary: object // Replace with a more specific type if possible
-  // Add other properties if needed
+  ratingsSummary: object
+  reviews: any
 }
+
 type ShortDetails = {
   '@context': string
   '@type': string
   url: string
   name: string
   image: string
-  // Add other properties if needed
 }
 type PlotText = {
   plaidHtml: string
@@ -80,13 +80,16 @@ type StoryLineDetails = {
   certificate: any
   parentsGuide: ParentsGuide
 }
+
 type TopDetails = {
   id: string
   productionStatus: object
   canHaveEpisodes: boolean
   series: any
   titleText: object
+  reviews: any
 }
+
 export type MovieDetails = {
   fake: FakeDetails
   imdbId: string

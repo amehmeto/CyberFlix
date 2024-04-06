@@ -8,6 +8,7 @@ export type Movie = {
   aka: string
   poster: string
   reviews: string[]
+  keywords: string[]
 }
 
 export const movieAdapter = createEntityAdapter<Movie>()
